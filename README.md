@@ -9,6 +9,27 @@ an easy way to send emails. We're using it with Rails 3 apps.
 
 **@MarioZaizar**
 
+## Installation
+---------------
+
+Add this line to your application's Gemfile:
+
+```
+gem 'planet_express'
+```
+
+And then execute:
+
+```
+$ bundle
+```
+
+Or install it yourself as:
+
+```
+$ gem install planet_express
+```
+
 Usage
 -----
 
@@ -92,3 +113,12 @@ When something is wrong:
   <ERROR_STRING>something wrong!</ERROR_STRING>
 </XTMAILING_RESPONSE>
 ```
+
+Contributing
+------------
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request

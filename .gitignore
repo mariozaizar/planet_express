@@ -1,10 +1,19 @@
 # Please keep this file alphabetically sorted.
 
+*.gem
+*.rbc
 .bundle
-.DS_Store
+.config
 .yardoc
+Gemfile.lock
+InstalledFiles
+_yardoc
 coverage
-coverage.data
-doc
+doc/
+lib/bundler/man
 pkg
 rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
