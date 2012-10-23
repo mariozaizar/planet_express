@@ -1,0 +1,10 @@
+# Please keep this file alphabetically sorted.
+
+.bundle
+.DS_Store
+.yardoc
+coverage
+coverage.data
+doc
+pkg
+rdoc
