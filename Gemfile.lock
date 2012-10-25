@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    planet_express (0.0.2)
+    planet_express (0.0.3)
       activesupport
       hpricot
 
