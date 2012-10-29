@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    planet_express (0.0.3)
+    planet_express (0.0.4)
       activesupport
       hpricot
 
@@ -52,7 +52,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   planet_express!
-  pry (~> 0.9.9.4)
+  pry
   rb-fsevent
   rspec
   ruby_gntp

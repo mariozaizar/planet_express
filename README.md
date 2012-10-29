@@ -53,6 +53,15 @@ request   = job.prepare package_id, recipient, cargo
 response  = job.deliver!
 ```
 
+Configuration
+-------------
+
+```
+PlanetExpress.configure do |config|
+  config.gateway_url = 'https://transact5.silverpop.com/XTMail'
+end
+```
+
 Silverpop API
 -------------
 

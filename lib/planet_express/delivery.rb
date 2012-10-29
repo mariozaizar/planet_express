@@ -1,8 +1,10 @@
 module PlanetExpress
   class Delivery
-    # Everybody needs log in your life
-    cattr_accessor :logger
-    self.logger = Logger.new(STDOUT)
+    # FIXME This requires Rails, so this lib won't work without Rails
+    # cattr_accessor :logger
+
+    # TODO replace this with log4r
+    # self.logger = Logger.new(STDOUT)
 
     def prepare campaign_id, recipient, personalizations={}
       # Is a better way to do this?
@@ -10,18 +12,17 @@ module PlanetExpress
       @recipient        = recipient
       @personalizations = personalizations
 
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "campaign_id      => #{@campaign_id}"
-      logger.info "recipient        => #{@recipient}"
-      logger.info "personalizations => #{@personalizations}"
-      logger.info "personalizations total => #{@personalizations.count}"
+      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      # logger.info "campaign_id  => #{@campaign_id}"
+      # logger.info "recipient    => #{@recipient}"
+      # logger.info "personalizations (#{@personalizations.count}) => #{@personalizations}"
 
       @personalizations.merge!({ :timestamp => Time.now, :email_template => @campaign_id })
       build_request
     end
 
     def deliver!
-      url = URI.parse 'https://transact5.silverpop.com/XTMail'
+      url = URI.parse PlanetExpress::configuration.gateway_url
       http, resp    = Net::HTTP.new(url.host, url.port), ''
       http.use_ssl  = true
 
@@ -64,16 +65,16 @@ module PlanetExpress
         "  #{recipient_xml}" +
         "</XTMAILING>"
 
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "request => #{@request}"
+      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      # logger.info "request => #{@request}"
 
       @request
     end
 
     def build_response response
       @response = Hpricot::XML(response)
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "response => #{response.inspect}"
+      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      # logger.info "response => #{response.inspect}"
 
       status              = @response.at('STATUS').innerHTML.to_i
       error_string        = @response.at('ERROR_STRING').innerHTML
