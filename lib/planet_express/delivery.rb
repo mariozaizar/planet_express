@@ -1,10 +1,7 @@
 module PlanetExpress
   class Delivery
-    # FIXME This requires Rails, so this lib won't work without Rails
-    # cattr_accessor :logger
-
-    # TODO replace this with log4r
-    # self.logger = Logger.new(STDOUT)
+    attr_accessor :logger
+    self.logger = Logger.new(STDOUT)
 
     def prepare campaign_id, recipient, personalizations={}
       # Is a better way to do this?
@@ -12,10 +9,10 @@ module PlanetExpress
       @recipient        = recipient
       @personalizations = personalizations
 
-      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      # logger.info "campaign_id  => #{@campaign_id}"
-      # logger.info "recipient    => #{@recipient}"
-      # logger.info "personalizations (#{@personalizations.count}) => #{@personalizations}"
+      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      logger.info "campaign_id  => #{@campaign_id}"
+      logger.info "recipient    => #{@recipient}"
+      logger.info "personalizations (#{@personalizations.count}) => #{@personalizations}"
 
       @personalizations.merge!({ :timestamp => Time.now, :email_template => @campaign_id })
       build_request
@@ -65,16 +62,16 @@ module PlanetExpress
         "  #{recipient_xml}" +
         "</XTMAILING>"
 
-      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      # logger.info "request => #{@request}"
+      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      logger.info "request => #{@request}"
 
       @request
     end
 
     def build_response response
       @response = Hpricot::XML(response)
-      # logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      # logger.info "response => #{response.inspect}"
+      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+      logger.info "response => #{response.inspect}"
 
       status              = @response.at('STATUS').innerHTML.to_i
       error_string        = @response.at('ERROR_STRING').innerHTML
