@@ -1,25 +1,35 @@
 module PlanetExpress
   class Delivery
+    include Log4r
+
+    attr_accessor :configuration
     attr_accessor :logger
-    self.logger = Logger.new(STDOUT)
+
+    def initialize *args
+      # Settings
+      self.configuration ||= PlanetExpress::Configuration.new
+
+      # Logs
+      self.logger = Log4r::Logger.new('PlanetExpress')
+      self.logger.outputters << Log4r::Outputter.stdout
+      logger.info "gateway_url => #{configuration.gateway_url}"
+    end
+
+    def configure
+      # Override Settings
+      yield(configuration)
+    end
 
     def prepare campaign_id, recipient, personalizations={}
-      # Is a better way to do this?
-      @campaign_id      = campaign_id
-      @recipient        = recipient
-      @personalizations = personalizations
-
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "campaign_id  => #{@campaign_id}"
-      logger.info "recipient    => #{@recipient}"
-      logger.info "personalizations (#{@personalizations.count}) => #{@personalizations}"
-
+      @campaign_id, @recipient, @personalizations = campaign_id, recipient, personalizations
       @personalizations.merge!({ :timestamp => Time.now, :email_template => @campaign_id })
+      raise PlanetExpress::ArgumentError if campaign_id.nil? or recipient.nil?
+
       build_request
     end
 
     def deliver!
-      url = URI.parse PlanetExpress::configuration.gateway_url
+      url = URI.parse configuration.gateway_url
       http, resp    = Net::HTTP.new(url.host, url.port), ''
       http.use_ssl  = true
 
@@ -38,40 +48,37 @@ module PlanetExpress
 
       @personalizations.each_pair do |name, value|
         fields_xml +=
-        "<PERSONALIZATION>" +
-        "  <TAG_NAME>#{name}</TAG_NAME>" +
-        "  <VALUE><![CDATA[#{value}]]></VALUE>" +
-        "</PERSONALIZATION>"
+        "    <PERSONALIZATION>\n" +
+        "      <TAG_NAME>#{name}</TAG_NAME>\n" +
+        "      <VALUE><![CDATA[#{value}]]></VALUE>\n" +
+        "    </PERSONALIZATION>\n"
       end
 
       recipient_xml =
-        "<RECIPIENT>" +
-        "  <EMAIL>" + @recipient + "</EMAIL>" +
-        "  <BODY_TYPE>HTML</BODY_TYPE>" +
-        "  #{fields_xml}" +
-        "</RECIPIENT>"
+        "  <RECIPIENT>\n" +
+        "    <EMAIL>" + @recipient + "</EMAIL>\n" +
+        "    <BODY_TYPE>HTML</BODY_TYPE>\n" +
+        "#{fields_xml}" +
+        "  </RECIPIENT>\n"
 
       @request =
-        "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>" +
-        "<XTMAILING>" +
-        "  <CAMPAIGN_ID>#{@campaign_id}</CAMPAIGN_ID>" +
-        "  <SHOW_ALL_SEND_DETAIL>true</SHOW_ALL_SEND_DETAIL>" +
-        "  <SEND_AS_BATCH>false</SEND_AS_BATCH>" +
-        "  <NO_RETRY_ON_FAILURE>false</NO_RETRY_ON_FAILURE>" +
-        # "  <TRANSACTION_ID>" + @transaction_id + "</TRANSACTION_ID>" +
-        "  #{recipient_xml}" +
-        "</XTMAILING>"
+        "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n" +
+        "<XTMAILING>\n" +
+        "  <CAMPAIGN_ID>#{@campaign_id}</CAMPAIGN_ID>\n" +
+        "  <SHOW_ALL_SEND_DETAIL>true</SHOW_ALL_SEND_DETAIL>\n" +
+        "  <SEND_AS_BATCH>false</SEND_AS_BATCH>\n" +
+        "  <NO_RETRY_ON_FAILURE>false</NO_RETRY_ON_FAILURE>\n" +
+        # "  <TRANSACTION_ID>" + @transaction_id + "</TRANSACTION_ID>\n" +
+        "#{recipient_xml}" +
+        "</XTMAILING>\n"
 
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "request => #{@request}"
-
+      logger.info "original request => \n#{@request}"
       @request
     end
 
     def build_response response
+      logger.info "original response => \n#{response}"
       @response = Hpricot::XML(response)
-      logger.info "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-      logger.info "response => #{response.inspect}"
 
       status              = @response.at('STATUS').innerHTML.to_i
       error_string        = @response.at('ERROR_STRING').innerHTML
