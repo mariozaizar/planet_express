@@ -114,6 +114,25 @@ When something is wrong:
 </XTMAILING_RESPONSE>
 ```
 
+```
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<XTMAILING_RESPONSE>
+  <CAMPAIGN_ID>4914098</CAMPAIGN_ID>
+  <RECIPIENTS_RECEIVED>1</RECIPIENTS_RECEIVED>
+  <EMAILS_SENT>0</EMAILS_SENT>
+  <NUMBER_ERRORS>1</NUMBER_ERRORS>
+  <STATUS>2</STATUS>
+  <ERROR_CODE>0</ERROR_CODE>
+  <ERROR_STRING></ERROR_STRING>
+  <RECIPIENT_DETAIL>
+    <EMAIL>user_email</EMAIL>
+    <SEND_STATUS>1</SEND_STATUS>
+    <ERROR_CODE>4</ERROR_CODE>
+    <ERROR_STRING>invalid email address user_email</ERROR_STRING>
+  </RECIPIENT_DETAIL>
+</XTMAILING_RESPONSE>
+```
+
 Contributing
 ------------
 
