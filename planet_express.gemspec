@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'activesupport'
   gem.add_dependency 'hpricot'
 
+  gem.add_development_dependency 'pry'
   gem.add_development_dependency 'guard'
   gem.add_development_dependency 'guard-bundler'
   gem.add_development_dependency 'guard-rspec'
