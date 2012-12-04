@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.0.7
+- If Rails.logger exists use it, if not switch to log4r.
+
 ### 0.0.6
 - Start using log4r instead of Logger.new (now logs are namespaced)
 - Minor changes to README and documentation. Added Changelog and silverpop api.
@@ -27,4 +30,4 @@ TODO
 ----
 
 - Include Yard for documentation http://yardoc.org
-- Let change the gateway from the Class, instead from the instance.
+- Let change the gateway from the Class, instead from the instance
