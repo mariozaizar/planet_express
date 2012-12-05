@@ -1,6 +1,9 @@
 Changelog
 =========
 
+### 0.0.8
+- Removing log4r and use Rails.logger instead (fix for isssue #1)
+
 ### 0.0.7
 - If Rails.logger exists use it, if not switch to log4r.
 

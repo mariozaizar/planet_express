@@ -8,15 +8,7 @@ module PlanetExpress
     def initialize *args
       # Settings
       self.configuration ||= PlanetExpress::Configuration.new
-
-      # By default try to use the same logger than Rails
-      begin
-        self.logger = Rails.logger
-      rescue
-        self.logger = Log4r::Logger.new('PlanetExpress')
-        self.logger.outputters << Log4r::Outputter.stdout
-      end
-
+      self.logger = Rails.logger
       logger.info "gateway_url => #{configuration.gateway_url}"
     end
 
