@@ -23,9 +23,9 @@ Then create a new deliver, prepare the ship and deliver it!
 ```
 require 'planet_express'
 
-recipient  = 'mariozaizar@gmail.com'
-package_id = 1807752
-cargo      = { bill_float_test_body: "<h1>Good news everyone!</h1><img src='http://goo.gl/XazeH'>" }
+recipient  = 'email@test.com'
+package_id = 432524234
+cargo      = { html_body_text: "<h1>Good news everyone!</h1><img src='http://goo.gl/XazeH'>" }
 
 job = PlanetExpress::Delivery.new
 request   = job.prepare package_id, recipient, cargo
