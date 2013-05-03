@@ -41,7 +41,7 @@ module PlanetExpress
   private
 
     def build_request
-      fields_xml = columns = ''
+      fields_xml = personalization_names = ''
 
       @personalizations.each_pair do |name, value|
         fields_xml +=

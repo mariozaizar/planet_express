@@ -1,6 +1,8 @@
 Changelog
 =========
 
+### 0.1.1 Typo with the new SAVE_COLUMNS feature.
+
 ### 0.1.0
 - Including `<SAVE_COLUMNS>` inside the XML request.
 
