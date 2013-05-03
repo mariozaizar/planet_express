@@ -60,4 +60,14 @@ Contributing
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+Build
+-----
+
+1. Do changes.
+2. Increase the `version.rb` using <http://semver.org/> pattern.
+3. Run specs
+4. Commit changes
+5. Release to RubyGems.org
+6. Fun
+
 **@MarioZaizar**
