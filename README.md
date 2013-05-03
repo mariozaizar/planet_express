@@ -67,7 +67,7 @@ Build
 2. Increase the `version.rb` using <http://semver.org/> pattern.
 3. Run specs
 4. Commit changes
-5. Release to RubyGems.org
+5. Release to RubyGems.org with `rake release`
 6. Fun
 
 **@MarioZaizar**
