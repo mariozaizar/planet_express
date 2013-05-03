@@ -1,6 +1,7 @@
 Changelog
 =========
 
+### 0.1.2 Other typo with 0.1.1.
 ### 0.1.1 Typo with the new SAVE_COLUMNS feature.
 
 ### 0.1.0

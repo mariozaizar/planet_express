@@ -67,7 +67,7 @@ module PlanetExpress
       save_columns_xml =
         "  <SAVE_COLUMNS>\n" +
         "#{personalization_names}" +
-        "  </SAVE_COLUMNS>\n" +
+        "  </SAVE_COLUMNS>\n"
 
       @request =
         "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n" +
