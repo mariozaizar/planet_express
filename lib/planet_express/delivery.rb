@@ -41,7 +41,7 @@ module PlanetExpress
   private
 
     def build_request
-      fields_xml = ''
+      fields_xml = columns = ''
 
       @personalizations.each_pair do |name, value|
         fields_xml +=
@@ -49,6 +49,9 @@ module PlanetExpress
         "      <TAG_NAME>#{name}</TAG_NAME>\n" +
         "      <VALUE><![CDATA[#{value}]]></VALUE>\n" +
         "    </PERSONALIZATION>\n"
+
+        personalization_names +=
+        "      <COLUMN_NAME>#{name}</COLUMN_NAME>\n"
       end
 
       recipient_xml =
@@ -58,6 +61,14 @@ module PlanetExpress
         "#{fields_xml}" +
         "  </RECIPIENT>\n"
 
+      # To save the personalization values in the Engage database,
+      # you must create the fields in your database and use the SAVE_COLUMN
+      # element for that XML tag.
+      save_columns_xml =
+        "  <SAVE_COLUMNS>\n" +
+        "#{personalization_names}" +
+        "  </SAVE_COLUMNS>\n" +
+
       @request =
         "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n" +
         "<XTMAILING>\n" +
@@ -66,6 +77,8 @@ module PlanetExpress
         "  <SEND_AS_BATCH>false</SEND_AS_BATCH>\n" +
         "  <NO_RETRY_ON_FAILURE>false</NO_RETRY_ON_FAILURE>\n" +
         # "  <TRANSACTION_ID>" + @transaction_id + "</TRANSACTION_ID>\n" +
+
+        "#{save_columns_xml}" +
         "#{recipient_xml}" +
         "</XTMAILING>\n"
 

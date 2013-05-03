@@ -1,6 +1,38 @@
 Changelog
 =========
 
+### 0.1.0
+- Including `<SAVE_COLUMNS>` inside the XML request.
+
+> To save the personalization values in the Engage database,
+> you must create the fields in your database and use the SAVE_COLUMN element
+> for that XML tag.
+
+```
+<XTMAILING>
+  <CAMPAIGN_ID>numeric CAMPAIGN id</CAMPAIGN_ID>
+  <TRANSACTION_ID>TRANS-1234</TRANSACTION_ID>
+  <SHOW_ALL_SEND_DETAIL>false</SHOW_ALL_SEND_DETAIL>
+  <SEND_AS_BATCH>false</SEND_AS_BATCH>
+  <NO_RETRY_ON_FAILURE >false</NO_RETRY_ON_FAILURE>
+  <SAVE_COLUMNS>
+    <COLUMN_NAME>ACCOUNT_ID</COLUMN_NAME>
+  </SAVE_COLUMNS>
+  <RECIPIENT>
+    <EMAIL>person@domain.com</EMAIL>
+    <BODY_TYPE>HTML</BODY_TYPE>
+    <PERSONALIZATION>
+      <TAG_NAME>ACCOUNT_ID</TAG_NAME>
+      <VALUE>807</VALUE>
+    </PERSONALIZATION>
+    <PERSONALIZATION>
+      <TAG_NAME>TRANSACT_MAIL_BODY</TAG_NAME>
+      <VALUE><![CDATA[<p>Click this link: <a href="http://foo">link</a><p>]]></VALUE>
+    </PERSONALIZATION>
+  </RECIPIENT>
+</XTMAILING>
+```
+
 ### 0.0.8
 - Removing log4r and use Rails.logger instead (fix for isssue #1)
 
