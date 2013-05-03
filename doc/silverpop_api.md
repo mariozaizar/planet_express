@@ -8,20 +8,19 @@ We're using this <https://transact5.silverpop.com/XTMail> end point.
 ```
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <XTMAILING>
-  <CAMPAIGN_ID>1807752</CAMPAIGN_ID>
+  <CAMPAIGN_ID>792430</CAMPAIGN_ID>
   <SHOW_ALL_SEND_DETAIL>true</SHOW_ALL_SEND_DETAIL>
   <SEND_AS_BATCH>false</SEND_AS_BATCH>
   <NO_RETRY_ON_FAILURE>false</NO_RETRY_ON_FAILURE>
+  <SAVE_COLUMNS>
+    <COLUMN_NAME>first_name</COLUMN_NAME>
+  </SAVE_COLUMNS>
   <RECIPIENT>
     <EMAIL>mariozaizar@gmail.com</EMAIL>
     <BODY_TYPE>HTML</BODY_TYPE>
     <PERSONALIZATION>
-      <TAG_NAME>first_name</TAG_NAME>
-      <VALUE><![CDATA[Mario]]></VALUE>
-    </PERSONALIZATION>
-    <PERSONALIZATION>
-      <TAG_NAME>last_name</TAG_NAME>
-      <VALUE><![CDATA[Zaizar]]></VALUE>
+      <TAG_NAME>data</TAG_NAME>
+      <VALUE><![CDATA[{:first_name=>\"Mario Alberto\"}]]></VALUE>
     </PERSONALIZATION>
   </RECIPIENT>
 </XTMAILING>
