@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 0.1.3
+
+- Don't use SSL by default: `http.use_ssl  = false`.
+- Return the full response and log the response stats to logger.
+- Indentation fixes
+
+- Return full XML response.
+
 ### 0.1.2 Other typo with 0.1.1.
 ### 0.1.1 Typo with the new SAVE_COLUMNS feature.
 

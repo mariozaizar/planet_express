@@ -28,7 +28,7 @@ module PlanetExpress
     def deliver!
       url = URI.parse configuration.gateway_url
       http, resp    = Net::HTTP.new(url.host, url.port), ''
-      http.use_ssl  = true
+      http.use_ssl  = false
 
       http.start do |h|
         path = url.path
@@ -51,7 +51,7 @@ module PlanetExpress
         "    </PERSONALIZATION>\n"
 
         personalization_names +=
-        "      <COLUMN_NAME>#{name}</COLUMN_NAME>\n"
+        "    <COLUMN_NAME>#{name}</COLUMN_NAME>\n"
       end
 
       recipient_xml =
@@ -95,9 +95,11 @@ module PlanetExpress
       recipients_received = @response.at('RECIPIENTS_RECEIVED').innerHTML
       emails_sent         = @response.at('EMAILS_SENT').innerHTML
 
-      return { status: false, emails_sent: emails_sent, recipients_received: recipients_received, message: 'The request has not been executed.' } if @response.nil?
-      return { status: false, emails_sent: emails_sent, recipients_received: recipients_received, message: error_string } if status == 2
-      return { status: true,  emails_sent: emails_sent, recipients_received: recipients_received } if status == 0
+      logger.info "Delivering: (#{emails_sent}/#{recipients_received})"
+      logger.warn "Can't retrieve the response!"  if @response.nil?
+      logger.error "Error: #{error_string}"       if status == 2
+
+      return @response
     end
   end
 end
