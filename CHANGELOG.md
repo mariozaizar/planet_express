@@ -1,6 +1,8 @@
 Changelog
 =========
 
+### 0.1.4 Fixing EOF error
+
 ### 0.1.3
 
 - Don't use SSL by default: `http.use_ssl  = false`.

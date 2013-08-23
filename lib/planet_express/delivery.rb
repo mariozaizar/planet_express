@@ -9,7 +9,7 @@ module PlanetExpress
       # Settings
       self.configuration ||= PlanetExpress::Configuration.new
       self.logger = Rails.logger
-      logger.info "gateway_url => #{configuration.gateway_url}"
+      logger.debug "gateway_url => #{configuration.gateway_url}"
     end
 
     def configure
@@ -28,7 +28,8 @@ module PlanetExpress
     def deliver!
       url = URI.parse configuration.gateway_url
       http, resp    = Net::HTTP.new(url.host, url.port), ''
-      http.use_ssl  = false
+      http.use_ssl  = url.scheme == 'https'
+      logger.debug "SSL version: #{http.ssl_version.inspect}" if http.use_ssl?
 
       http.start do |h|
         path = url.path
@@ -95,11 +96,11 @@ module PlanetExpress
       recipients_received = @response.at('RECIPIENTS_RECEIVED').innerHTML
       emails_sent         = @response.at('EMAILS_SENT').innerHTML
 
-      logger.info "Delivering: (#{emails_sent}/#{recipients_received})"
-      logger.warn "Can't retrieve the response!"  if @response.nil?
       logger.error "Error: #{error_string}"       if status == 2
+      logger.warn "Can't retrieve the response!"  if @response.nil?
+      logger.info "Email (#{emails_sent}/#{recipients_received}) delivered."
 
-      return @response
+      return response
     end
   end
 end
