@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    planet_express (0.1.3)
+    planet_express (0.1.4)
       activesupport
       hpricot
       log4r
