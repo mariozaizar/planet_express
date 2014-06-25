@@ -83,12 +83,12 @@ module PlanetExpress
         "#{recipient_xml}" +
         "</XTMAILING>\n"
 
-      logger.info "original request => \n#{@request}"
+      logger.debug "original request => \n#{@request}"
       @request
     end
 
     def build_response response
-      logger.info "original response => \n#{response}"
+      logger.debug "original response => \n#{response}"
       @response = Hpricot::XML(response)
 
       status              = @response.at('STATUS').innerHTML.to_i
