@@ -56,8 +56,8 @@ Build
 
 # do changes and update version.rb and CHANGELOG.
 # git commit & push
-bundle exec rake build;
-bundle exec rake release;
+rake build;
+rake release;
 
 
 Contributing
