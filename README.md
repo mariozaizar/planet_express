@@ -51,6 +51,15 @@ Silverpop API
 
 Check this file: [doc/silverpop_api.md](./doc/silverpop_api.md)
 
+Build
+------------
+
+# do changes and update version.rb and CHANGELOG.
+# git commit & push
+bundle exec rake build;
+bundle exec rake release;
+
+
 Contributing
 ------------
 

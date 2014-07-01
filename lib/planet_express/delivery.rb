@@ -96,11 +96,13 @@ module PlanetExpress
       recipients_received = @response.at('RECIPIENTS_RECEIVED').innerHTML
       emails_sent         = @response.at('EMAILS_SENT').innerHTML
 
-      logger.error "Error: #{error_string}"       if status == 2
-      logger.warn "Can't retrieve the response!"  if @response.nil?
-      logger.info "Email (#{emails_sent}/#{recipients_received}) delivered."
+      if status == 2
+        logger.error "PlanetExpress error: #{error_string}, response: #{response}"
+      end
 
-      return response
+      logger.warn "PlanetExpress can't retrieve the response!" if @response.nil?
+      logger.info "PlanetExpress delivered (#{emails_sent}/#{recipients_received}) emails."
+      response
     end
   end
 end

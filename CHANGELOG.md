@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 0.1.6 Add more details when an error response is processed.
+
+### 0.1.5 Removing some error loggers.
+
+### 0.1.4
+
 ### 0.1.4 Fixing EOF error
 
 ### 0.1.3
