@@ -19,7 +19,7 @@ module PlanetExpress
 
     def prepare campaign_id, recipient, personalizations={}
       @campaign_id, @recipient, @personalizations = campaign_id, recipient, personalizations
-      @personalizations.merge!({ :timestamp => Time.now, :email_template => @campaign_id })
+      @personalizations.merge!({ :TIMESTAMP => Time.now, :EMAIL_TEMPLATE => @campaign_id })
       raise PlanetExpress::ArgumentError if campaign_id.nil? or recipient.nil?
 
       build_request

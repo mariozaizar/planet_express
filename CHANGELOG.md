@@ -1,6 +1,8 @@
 Changelog
 =========
 
+### 0.2.0 Make sure default personalizations (TIMESTAMP and EMAIL_TEMPLATE are uppercase)
+
 ### 0.1.6 Add more details when an error response is processed.
 
 ### 0.1.5 Removing some error loggers.
