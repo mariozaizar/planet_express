@@ -19,7 +19,12 @@ module PlanetExpress
 
     def prepare campaign_id, recipient, personalizations={}
       @campaign_id, @recipient, @personalizations = campaign_id, recipient, personalizations
-      @personalizations.merge!({ :TIMESTAMP => Time.now, :EMAIL_TEMPLATE => @campaign_id })
+
+      @personalizations.merge!({
+        :TIMESTAMP => Time.now,
+        :EMAIL_TEMPLATE => @campaign_id
+      })
+
       raise PlanetExpress::ArgumentError if campaign_id.nil? or recipient.nil?
 
       build_request
@@ -97,11 +102,11 @@ module PlanetExpress
       emails_sent         = @response.at('EMAILS_SENT').innerHTML
 
       if status == 2
-        logger.error "PlanetExpress error: #{error_string}, response: #{response}"
+        logger.warn "PlanetExpress WARN: '#{error_string}', response: #{response}"
       end
 
-      logger.warn "PlanetExpress can't retrieve the response!" if @response.nil?
-      logger.info "PlanetExpress delivered (#{emails_sent}/#{recipients_received}) emails."
+      logger.warn "PlanetExpress WARN: can't retrieve the response!" if @response.nil?
+      logger.info "PlanetExpress INFO: delivered (#{emails_sent}/#{recipients_received}) emails."
       response
     end
   end

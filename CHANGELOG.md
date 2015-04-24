@@ -1,17 +1,21 @@
 Changelog
 =========
 
+### 1.0.0 Don't log as ERROR (let the host decide if is an error or not)
+  - Decrease the logger level from "error" to "warn" when status == 2
+  - Bump version to v1.0.0.
+
 ### 0.2.0 Make sure default personalizations (TIMESTAMP and EMAIL_TEMPLATE are uppercase)
 
 ### 0.1.6 Add more details when an error response is processed.
 
 ### 0.1.5 Removing some error loggers.
 
-### 0.1.4
+### 0.1.4 Misc
 
 ### 0.1.4 Fixing EOF error
 
-### 0.1.3
+### 0.1.3 Misc
 
 - Don't use SSL by default: `http.use_ssl  = false`.
 - Return the full response and log the response stats to logger.
